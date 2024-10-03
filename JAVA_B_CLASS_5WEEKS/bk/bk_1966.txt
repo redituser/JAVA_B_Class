@@ -1,0 +1,53 @@
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int testcase = sc.nextInt();
+
+        for (int i = 0; i < testcase; i++) {
+            Queue<Integer> que = new LinkedList<>();
+            int n = sc.nextInt();
+            int m = sc.nextInt();
+            int count = 0;
+
+            for (int j = 0; j < n; j++) {
+                que.offer(sc.nextInt());
+            }
+
+            while (!que.isEmpty()) {
+                int max = findMax(que);
+                int current = que.poll();
+
+                if (max == current) {
+                    count++;
+                    if (m == 0) {
+                        System.out.println(count);
+                        break;
+                    }
+                    m--;
+                } else {
+                    que.offer(current);
+                    if (m == 0) {
+                        m = que.size() - 1;
+                    } else {
+                        m--;
+                    }
+                }
+            }
+        }
+        sc.close();
+    }
+
+    static int findMax(Queue<Integer> que) {
+        int max = 0;
+        for (int find : que) {
+            if (find > max) {
+                max = find;
+            }
+        }
+        return max;
+    }
+}

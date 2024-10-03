@@ -1,0 +1,20 @@
+def check(a):
+    l = []
+    for i in a:
+        if i == '(':
+            l.append(i)
+        elif i == ')':
+            if not l or l[-1] != '(':
+                return 'NO'
+            else:
+                l.pop()
+
+    if l:
+       return "NO"
+    return "YES"
+
+
+t = int(input())
+for _ in range(t):
+    a = input()
+    print(check(a))

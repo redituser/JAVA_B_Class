@@ -1,0 +1,54 @@
+
+import java.util.Scanner;
+import java.util.Stack;
+import java.util.ArrayList;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        Stack<Integer> stack = new Stack<>();
+        ArrayList<String> operations = new ArrayList<>();
+
+        int n = sc.nextInt();
+        int[] targetSequence = new int[n];
+
+        // 목표 수열 입력 받기
+        for (int i = 0; i < n; i++) {
+            targetSequence[i] = sc.nextInt();
+        }
+
+        int current = 1;
+        boolean possible = true;
+
+        for (int i = 0; i < n; i++) {
+            int target = targetSequence[i];
+
+            // 현재 숫자가 목표보다 작거나 같으면 스택에 push
+            while (current <= target) {
+                stack.push(current);
+                operations.add("+");
+                current++;
+            }
+
+            // 스택의 top이 목표와 같으면 pop
+            if (!stack.isEmpty() && stack.peek() == target) {
+                stack.pop();
+                operations.add("-");
+            } else {
+                possible = false;
+                break;
+            }
+        }
+
+        // 결과 출력
+        if (possible) {
+            for (String op : operations) {
+                System.out.println(op);
+            }
+        } else {
+            System.out.println("NO");
+        }
+
+        sc.close();
+    }
+}
